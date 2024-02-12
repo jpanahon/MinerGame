@@ -11,8 +11,8 @@ TagManager:
   - Background
   - Water
   - UI
+  - Mineable
   - Player
-  - 
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Mineable
+    uniqueID: 2442550913
     locked: 0
   - name: Player
     uniqueID: 3357573167
