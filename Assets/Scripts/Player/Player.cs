@@ -25,18 +25,21 @@ public class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         playerSprite = GetComponent<SpriteRenderer>();
     }
+
     void OnEnable()
     {
         input.Enable();
-        input.Movement.Move.performed += Moving;
-        input.Movement.Move.canceled += Stopping;
+        input.Player.Move.performed += Moving;
+        input.Player.Move.canceled += Stopping;
+        input.Player.Mouse.performed += Interact;
     }
 
     void OnDisable()
     {
         input.Disable();
-        input.Movement.Move.performed -= Moving;
-        input.Movement.Move.canceled -= Stopping;
+        input.Player.Move.performed -= Moving;
+        input.Player.Move.canceled -= Stopping;
+        input.Player.Mouse.performed -= Interact;
     }
 
     private void FixedUpdate()
@@ -69,5 +72,13 @@ public class Player : MonoBehaviour
     private void Stopping(InputAction.CallbackContext value)
     {
         moveVector = Vector2.zero;
+    }
+
+    private void Interact(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+
+        }
     }
 }
