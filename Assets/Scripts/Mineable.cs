@@ -6,15 +6,18 @@ public class Mineable : MonoBehaviour
 {
     [SerializeField] public float breakTime = 1.0f;
     [SerializeField] public int worth = 1;
+
+    private float miningProcess = 0.0f;
     // Start is called before the first frame update
-    void Start()
+
+    public IEnumerator Mining()
     {
+        while (miningProcess < 1.0f)
+        {
+            miningProcess += Time.deltaTime / breakTime;
+            yield return null;
+        }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        Destroy(gameObject);
     }
 }

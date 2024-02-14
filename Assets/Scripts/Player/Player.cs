@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] public int speed = 10;
     [SerializeField] public Sprite frontView;
     [SerializeField] public Sprite backView;
-    [SerializeField] public Sprite leftView;
     [SerializeField] public Sprite rightView;
+    [SerializeField] public LayerMask mineable;
 
     private SpriteRenderer playerSprite = null;
 
@@ -52,11 +52,17 @@ public class Player : MonoBehaviour
 
         if (moveVector.x > 0)
         {
+            playerSprite.flipX = false;
             playerSprite.sprite = rightView;
         }
         else if (moveVector.x < 0)
         {
-            playerSprite.sprite = leftView;
+            playerSprite.flipX = true;
+
+            if (playerSprite.sprite != rightView)
+            {
+                playerSprite.sprite = rightView;
+            }
         }
 
         if (moveVector.y > 0)
@@ -78,7 +84,15 @@ public class Player : MonoBehaviour
     {
         if (value.performed)
         {
+            RaycastHit2D hit = Physics2D.Raycast(
+                transform.position, Vector2.right, 1.0f, mineable
+            );
 
+            if (hit.collider != null)
+            {
+                Debug.Log($"Hit {hit.collider.name}");
+                StartCoroutine(hit.collider.GetComponent<Mineable>().Mining());
+            }
         }
     }
 }
